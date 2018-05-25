@@ -64,7 +64,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 return
             }
             
-//            self.messagesController?.fetchUserAndSetupNavBarTitle()
+
 //            self.messagesController?.navigationItem.title = values["name"] as? String
             let user = User()
             //this setter potentially crashes if keys don't match
@@ -107,5 +107,4 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         print("canceled picker")
         dismiss(animated: true, completion: nil)
     }
-    
-}
+} // end of code

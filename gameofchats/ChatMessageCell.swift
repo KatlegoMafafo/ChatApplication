@@ -168,7 +168,7 @@ class ChatMessageCell: UICollectionViewCell {
         
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
-        //ios 9 constraints
+        
         //x,y,w,h
 //        textView.rightAnchor.constraintEqualToAnchor(self.rightAnchor).active = true
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
@@ -184,5 +184,4 @@ class ChatMessageCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-}
+} // end code

@@ -42,7 +42,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 self.messages.append(Message(dictionary: dictionary))
                 DispatchQueue.main.async(execute: {
                     self.collectionView?.reloadData()
-                    //scroll to the last index
+                    //scroll down to the last index
                     let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
                     self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
                 })
@@ -66,7 +66,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         super.viewDidLoad()
         
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-//        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
@@ -247,11 +247,10 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     func setupKeyboardObservers() {
+        //notification centre
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
-//        
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+
     }
     
     func handleKeyboardDidShow() {
@@ -324,7 +323,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
         
         if message.fromId == FIRAuth.auth()?.currentUser?.uid {
-            //outgoing blue
+            
             cell.bubbleView.backgroundColor = ChatMessageCell.blueColor
             cell.textView.textColor = UIColor.white
             cell.profileImageView.isHidden = true
@@ -333,7 +332,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             cell.bubbleViewLeftAnchor?.isActive = false
             
         } else {
-            //incoming gray
+           
             cell.bubbleView.backgroundColor = UIColor(r: 240, g: 240, b: 240)
             cell.textView.textColor = UIColor.black
             cell.profileImageView.isHidden = false
@@ -364,9 +363,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             height = estimateFrameForText(text).height + 20
         } else if let imageWidth = message.imageWidth?.floatValue, let imageHeight = message.imageHeight?.floatValue {
             
-            // h1 / w1 = h2 / w2
-            // solve for h1
-            // h1 = h2 / w2 * w1
+         
             
             height = CGFloat(imageHeight / imageWidth * 200)
             
@@ -403,8 +400,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         var values: [String: AnyObject] = ["toId": toId as AnyObject, "fromId": fromId as AnyObject, "timestamp": timestamp]
         
-        //append properties dictionary onto values somehow??
-        //key $0, value $1
+        
         properties.forEach({values[$0] = $1})
         
         childRef.updateChildValues(values) { (error, ref) in
@@ -434,7 +430,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     var blackBackgroundView: UIView?
     var startingImageView: UIImageView?
     
-    //my custom zooming logic
+    //my custom zooming
     func performZoomInForStartingImageView(_ startingImageView: UIImageView) {
         
         self.startingImageView = startingImageView
@@ -461,9 +457,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 self.blackBackgroundView?.alpha = 1
                 self.inputContainerView.alpha = 0
                 
-                // math?
-                // h2 / w1 = h1 / w1
-                // h2 = h1 / w1 * w1
+               
                 let height = self.startingFrame!.height / self.startingFrame!.width * keyWindow.frame.width
                 
                 zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
@@ -471,7 +465,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 zoomingImageView.center = keyWindow.center
                 
                 }, completion: { (completed) in
-//                    do nothing
+
             })
             
         }
@@ -495,7 +489,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             })
         }
     }
-}
+} // end of code
 
 
 

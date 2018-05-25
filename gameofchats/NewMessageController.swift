@@ -32,16 +32,16 @@ class NewMessageController: UITableViewController {
                 let user = User()
                 user.id = snapshot.key
                 
-                //if you use this setter, your app will crash if your class properties don't exactly match up with the firebase dictionary keys
+                
                 user.setValuesForKeys(dictionary)
                 self.users.append(user)
                 
-                //this will crash because of background thread, so lets use dispatch_async to fix
+                
                 DispatchQueue.main.async(execute: { 
                     self.tableView.reloadData()
                 })
                 
-//                user.name = dictionary["name"]
+
             }
             
             }, withCancel: nil)
@@ -82,8 +82,7 @@ class NewMessageController: UITableViewController {
             self.messagesController?.showChatControllerForUser(user)
         }
     }
-
-}
+} // end of code
 
 
 

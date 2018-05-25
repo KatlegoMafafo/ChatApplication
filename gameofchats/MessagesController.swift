@@ -51,7 +51,7 @@ class MessagesController: UITableViewController{
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
-//        observeMessages()
+
         
         tableView.allowsMultipleSelectionDuringEditing = true
         
@@ -97,10 +97,6 @@ class MessagesController: UITableViewController{
                 
                 self.messagesDictionary.removeValue(forKey: chatPartnerId)
                 self.attemptReloadOfTable()
-                
-//                //this is one way of updating the table, but its actually not that safe..
-//                self.messages.removeAtIndex(indexPath.row)
-//                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 
             })
         }
@@ -170,8 +166,7 @@ class MessagesController: UITableViewController{
             return message1.timestamp?.int32Value > message2.timestamp?.int32Value
         })
         
-        //this will crash because of background thread, so lets call this on dispatch_async main thread
-        DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
     }
@@ -231,7 +226,7 @@ class MessagesController: UITableViewController{
     
     func fetchUserAndSetupNavBarTitle() {
         guard let uid = FIRAuth.auth()?.currentUser?.uid else {
-            //for some reason uid = nil
+            
             return
         }
         
@@ -274,7 +269,6 @@ class MessagesController: UITableViewController{
         
         containerView.addSubview(profileImageView)
         
-        //ios 9 constraint anchors
         //need x,y,width,height anchors
         profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
@@ -318,6 +312,5 @@ class MessagesController: UITableViewController{
         loginController.messagesController = self
         present(loginController, animated: true, completion: nil)
     }
-
-}
+} // end of code
 
